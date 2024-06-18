@@ -2,6 +2,7 @@ import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
 import router from "./router/router.js";
+import sequelize from "./config/database.js";
 
 const port = process.env.PORT || 3000;
 const app = express();
@@ -11,13 +12,13 @@ app.use(bodyParser.json());
 app.use('', router);
 
 function startServer() {
-  try {
+  sequelize.sync({ force: true }).then(() => {
     app.listen(port, () => {
-      console.log(`Server is running on port: ${port}`);
-    })
-  } catch (e) {
-    throw new Error(e);
-  }
+        console.log(`Server is running on port: ${port}`);
+    });
+}).catch(error => {
+    console.error('Unable to connect to the database:', error);
+});
 }
 
 startServer();
