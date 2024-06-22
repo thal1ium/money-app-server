@@ -29,9 +29,9 @@ class Controllers {
         await deleteTransaction.destroy();
         res.status(204).json();
       } else {
-        res.status(404).json({error: "Transaction not found"})
+        res.status(404).json({ error: "Transaction not found" })
       }
-      
+
     } catch (error) {
       res.status(500).send(error.message);
     }
