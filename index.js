@@ -14,7 +14,7 @@ app.use('', router);
 app.use(xssClean());
 
 function startServer() {
-    sequelize.sync({ force: true }).then(() => {
+    sequelize.sync().then(() => {
         app.listen(port, () => {
             console.log(`Server is running on port: ${port}`);
         });
